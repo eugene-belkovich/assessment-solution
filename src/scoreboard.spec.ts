@@ -1,5 +1,8 @@
 import {IScoreboard, Scoreboard} from './scoreboard';
 import {ScoreboardRepository} from './repository/scoreboard-in-memory.repository';
+import {CountryNameEnum, RepositoryErrorMessagesEnum} from "./enums";
+import {Game} from "./entities/game.entity";
+import {ScoreboardRepositoryError} from "./errors";
 
 describe('Scoreboard', () => {
   let scoreboard: IScoreboard;
@@ -18,8 +21,30 @@ describe('Scoreboard', () => {
   });
 
   describe('startNewGame', () => {
-    test('should start new game and call repository.addGame', () => {
-      fail('Not implemented');
+    test('should call repository.addGame with a new game', () => {
+      const homeTeam = CountryNameEnum.Spain;
+      const awayTeam = CountryNameEnum.Germany;
+
+      const game = new Game(homeTeam, awayTeam);
+
+      scoreboard.startNewGame(homeTeam, awayTeam);
+      expect(mockRepository.addGame).toHaveBeenCalledWith(game);
+    });
+
+    test('should propagate error when repository.addGame throws error', () => {
+      const homeTeam = CountryNameEnum.Spain;
+      const awayTeam = CountryNameEnum.Germany;
+
+      const game = new Game(homeTeam, awayTeam);
+
+      const error = new ScoreboardRepositoryError(RepositoryErrorMessagesEnum.GAME_IS_NULL);
+
+      mockRepository.addGame.mockImplementationOnce(() => {
+        throw error;
+      });
+
+      expect(() => scoreboard.startNewGame(homeTeam, awayTeam)).toThrow(error);
+      expect(mockRepository.addGame).toHaveBeenCalledWith(game);
     });
   });
 

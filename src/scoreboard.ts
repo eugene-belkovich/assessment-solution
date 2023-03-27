@@ -1,5 +1,6 @@
 import {Type} from 'class-transformer';
 import {ScoreboardInMemoryRepository, ScoreboardRepository} from './repository/scoreboard-in-memory.repository';
+import {Game} from "./entities/game.entity";
 
 export interface IScoreboard {
   startNewGame(homeTeam: string, awayTeam: string): void;
@@ -17,7 +18,7 @@ export class Scoreboard implements IScoreboard {
   }
 
   public startNewGame(homeTeam: string, awayTeam: string): void {
-    console.log('startNewGame');
+    this._repository.addGame(new Game(homeTeam, awayTeam));
   }
 
   public finishGame(homeTeam: string, awayTeam: string): void {
