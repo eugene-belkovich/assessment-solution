@@ -49,8 +49,28 @@ describe('Scoreboard', () => {
   });
 
   describe('finishGame', () => {
-    test('should finish game and call repository.deleteGame', () => {
-      fail('Not implemented');
+    test('should call repository.deleteGame with home and away teams', () => {
+      const homeTeam = CountryNameEnum.Spain;
+      const awayTeam = CountryNameEnum.Germany;
+
+      scoreboard.finishGame(homeTeam, awayTeam);
+
+      expect(mockRepository.deleteGame).toHaveBeenCalledWith(homeTeam, awayTeam);
+    });
+
+    test('should propagate error when repository.deleteGame throws error', () => {
+      const homeTeam = CountryNameEnum.Spain;
+      const awayTeam = CountryNameEnum.Germany;
+
+      const errorMessage = `The game with key "${homeTeam} - ${awayTeam}" is not not stored in database`;
+      const error = new ScoreboardRepositoryError(errorMessage);
+
+      mockRepository.deleteGame.mockImplementationOnce(() => {
+        throw error;
+      });
+
+      expect(() => scoreboard.finishGame(homeTeam, awayTeam)).toThrow(error);
+      expect(mockRepository.deleteGame).toHaveBeenCalledWith(homeTeam, awayTeam);
     });
   });
 

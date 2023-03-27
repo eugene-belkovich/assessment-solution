@@ -22,7 +22,7 @@ export class Scoreboard implements IScoreboard {
   }
 
   public finishGame(homeTeam: string, awayTeam: string): void {
-    console.log('startNewGame');
+    this._repository.deleteGame(homeTeam, awayTeam);
   }
 
   public updateScore(homeTeam: string, awayTeam: string, homeScore: number, awayScore: number): void {
