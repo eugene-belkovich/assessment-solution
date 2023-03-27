@@ -20,12 +20,10 @@ describe('Game', () => {
 
   test('should throw error cause homeTeam is null', () => {
     fail('Not implemented');
-
   });
 
   test('should throw error cause awayTeam is null', () => {
     fail('Not implemented');
-
   });
 
   test('should throw error cause updateScore get negative number', () => {
