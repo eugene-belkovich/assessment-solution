@@ -1,5 +1,5 @@
 import {Country} from '../country.entity';
-import {PropertyValidationError} from '../../validation';
+import {PropertyValidationError} from '../../errors';
 import {CountryNameEnum} from "../../enums";
 
 describe('Country', () => {

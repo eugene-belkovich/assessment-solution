@@ -1,6 +1,7 @@
 import {Optional} from '../utils';
 import {Game} from '../entities/game.entity';
-import {ScoreboardRepositoryError} from "../validation";
+import {ScoreboardRepositoryError} from '../errors';
+import {RepositoryErrorMessagesEnum} from '../enums';
 
 export interface ScoreboardRepository {
   addGame(game: Game): void;
@@ -9,9 +10,6 @@ export interface ScoreboardRepository {
   findGame(homeTeam: string, awayTeam: string): Optional<Game>;
   findAllGames(): Game[];
 }
-
-export const GAME_IS_NULL: string = 'Game cannot be null';
-export const GAME_ALREADY_EXISTS: string = 'Game already exists';
 
 export class ScoreboardInMemoryRepository implements ScoreboardRepository {
   private _backend: Map<string, Game>;
@@ -26,23 +24,40 @@ export class ScoreboardInMemoryRepository implements ScoreboardRepository {
 
   public addGame(game: Game): void {
     if (!game) {
-      throw new ScoreboardRepositoryError(GAME_IS_NULL);
+      throw new ScoreboardRepositoryError(RepositoryErrorMessagesEnum.GAME_IS_NULL);
     }
 
     const foundGame: Game = this.findGame(game.homeTeam, game.awayTeam);
     if (foundGame) {
-      throw new ScoreboardRepositoryError(GAME_ALREADY_EXISTS);
+      throw new ScoreboardRepositoryError(RepositoryErrorMessagesEnum.GAME_ALREADY_EXISTS);
     }
 
     this._backend.set(this.getKey(game.homeTeam, game.awayTeam), game);
   }
 
   public deleteGame(homeTeam: string, awayTeam: string): void {
-    console.log('deleteGame');
+    const game: Game = this.findGame(homeTeam, awayTeam);
+
+    if (!game) {
+      throw new ScoreboardRepositoryError(
+        `${RepositoryErrorMessagesEnum.GAME_IS_NOT_EXISTS}${this.getKey(homeTeam, awayTeam)}`,
+      );
+    }
+
+    this._backend.delete(this.getKey(homeTeam, awayTeam));
   }
 
   public updateGame(game: Game): void {
-    console.log('updateGame');
+    const gameId: string = this.getKey(game.homeTeam, game.awayTeam);
+    const foundGame: Game = this.findGame(game.homeTeam, game.awayTeam);
+
+    if (!foundGame) {
+      throw new ScoreboardRepositoryError(
+        `${RepositoryErrorMessagesEnum.GAME_IS_NOT_EXISTS}${this.getKey(game.homeTeam, game.awayTeam)}`,
+      );
+    }
+
+    this._backend.set(gameId, game);
   }
 
   public findGame(homeTeam: string, awayTeam: string): Optional<Game> {

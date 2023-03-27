@@ -1,4 +1,4 @@
-import {PropertyValidationError} from '../../validation';
+import {PropertyValidationError} from '../../errors';
 import {Team} from '../team.entity';
 import {Country} from '../country.entity';
 import {CountryNameEnum} from "../../enums";

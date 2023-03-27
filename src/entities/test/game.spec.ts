@@ -1,5 +1,5 @@
 import {Game} from '../game.entity';
-import {PropertyValidationError} from '../../validation';
+import {PropertyValidationError} from '../../errors';
 import {CountryNameEnum} from "../../enums";
 
 describe('Game', () => {

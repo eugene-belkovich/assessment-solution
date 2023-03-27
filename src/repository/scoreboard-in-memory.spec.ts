@@ -1,6 +1,7 @@
 import {ScoreboardInMemoryRepository} from './scoreboard-in-memory.repository';
 import {Game} from '../entities/game.entity';
-import {ScoreboardRepositoryError} from '../validation';
+import {ScoreboardRepositoryError} from '../errors';
+import {CountryNameEnum} from '../enums';
 
 describe('ScoreboardInMemoryRepository', () => {
   let repository: ScoreboardInMemoryRepository;
@@ -11,9 +12,9 @@ describe('ScoreboardInMemoryRepository', () => {
 
   describe('addGame', () => {
     test('should added game', () => {
-      const game = new Game('Mexico', 'Canada');
+      const game = new Game(CountryNameEnum.Mexico, CountryNameEnum.Canada);
       repository.addGame(game);
-      const expected = repository.findGame('Mexico', 'Canada');
+      const expected = repository.findGame(CountryNameEnum.Mexico, CountryNameEnum.Canada);
       expect(expected).toEqual(game);
       expect(expected.startTime).toEqual(game.startTime);
       expect(expected.homeTeam).toEqual(game.homeTeam);
@@ -24,7 +25,7 @@ describe('ScoreboardInMemoryRepository', () => {
     });
 
     test('should throw error because game already exists', () => {
-      const game = new Game('Mexico', 'Canada');
+      const game = new Game(CountryNameEnum.Mexico, CountryNameEnum.Canada);
       repository.addGame(game);
       try {
         repository.addGame(game);
@@ -44,21 +45,42 @@ describe('ScoreboardInMemoryRepository', () => {
 
   describe('deleteGame', () => {
     test('should deleted game', () => {
-      fail('Not implemented');
+      const game = new Game(CountryNameEnum.Mexico, CountryNameEnum.Canada);
+      repository.addGame(game);
+      repository.deleteGame(CountryNameEnum.Mexico, CountryNameEnum.Canada);
+      const expected = repository.findGame(CountryNameEnum.Mexico, CountryNameEnum.Canada);
+      expect(expected).toEqual(undefined);
     });
 
     test('should delete game only if exist', () => {
-      fail('Not implemented');
+      try {
+        repository.deleteGame(CountryNameEnum.Mexico, CountryNameEnum.Canada);
+      } catch (error) {
+        expect(error).toBeInstanceOf(ScoreboardRepositoryError);
+      }
     });
   });
 
   describe('updateGame', () => {
     test('should update game', () => {
-      fail('Not implemented');
+      const game = new Game(CountryNameEnum.Mexico, CountryNameEnum.Canada);
+      repository.addGame(game);
+      game.updateScore(1, 0);
+      repository.updateGame(game);
+      const expected = repository.findGame(CountryNameEnum.Mexico, CountryNameEnum.Canada);
+      expect(expected.homeScore).toEqual(1);
+      expect(expected.totalScore).toEqual(1);
     });
 
     test('should update game only if exist', () => {
-      fail('Not implemented');
+      try {
+        const game = new Game(CountryNameEnum.Mexico, CountryNameEnum.Canada);
+        repository.addGame(game);
+        const game2 = new Game(CountryNameEnum.Spain, CountryNameEnum.Brazil);
+        repository.updateGame(game2);
+      } catch (error) {
+        expect(error).toBeInstanceOf(ScoreboardRepositoryError);
+      }
     });
   });
 
@@ -69,9 +91,9 @@ describe('ScoreboardInMemoryRepository', () => {
     });
 
     test('should return all games', () => {
-      const game = new Game('Mexico', 'Canada');
+      const game = new Game(CountryNameEnum.Mexico, CountryNameEnum.Canada);
       repository.addGame(game);
-      const game2 = new Game('Spain', 'Brazil');
+      const game2 = new Game(CountryNameEnum.Spain, CountryNameEnum.Brazil);
       repository.addGame(game2);
       expect(repository.findAllGames()[0]).toEqual(game);
       expect(repository.findAllGames()[1]).toEqual(game2);
