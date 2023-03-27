@@ -1,32 +1,71 @@
 import {Game} from '../game.entity';
+import {PropertyValidationError} from '../../validation';
+import {CountryNameEnum} from "../../enums";
 
 describe('Game', () => {
   let game: Game;
 
   test('should create correct Game with initial score 0-0', () => {
-    game = new Game('Mexico', 'Canada');
-    expect(game.homeTeam).toEqual('Mexico');
-    expect(game.awayTeam).toEqual('Canada');
+    game = new Game(CountryNameEnum.Mexico, CountryNameEnum.Canada);
+    expect(game.homeTeam).toEqual(CountryNameEnum.Mexico);
+    expect(game.awayTeam).toEqual(CountryNameEnum.Canada);
     expect(game.homeScore).toEqual(0);
     expect(game.awayScore).toEqual(0);
     expect(game.totalScore).toEqual(0);
     expect(game.startTime).not.toEqual(null);
-    expect(game.startTime).toBeInstanceOf(Date);
+    expect(typeof game.startTime).toBe('string');
   });
 
   test('should correctly update score and total score', () => {
-    fail('Not implemented');
+    game = new Game(CountryNameEnum.Mexico, CountryNameEnum.Canada);
+    expect(game.homeTeam).toEqual(CountryNameEnum.Mexico);
+    expect(game.awayTeam).toEqual(CountryNameEnum.Canada);
+    expect(game.homeScore).toEqual(0);
+    expect(game.awayScore).toEqual(0);
+    expect(game.totalScore).toEqual(0);
+    game.updateScore(3, 3);
+    expect(game.homeScore).toEqual(3);
+    expect(game.awayScore).toEqual(3);
+    expect(game.totalScore).toEqual(6);
+    game.updateScore(2, 2);
+    expect(game.homeScore).toEqual(2);
+    expect(game.awayScore).toEqual(2);
+    expect(game.totalScore).toEqual(4);
+    game.updateScore(0, 0);
+    expect(game.homeScore).toEqual(0);
+    expect(game.awayScore).toEqual(0);
+    expect(game.totalScore).toEqual(0);
   });
 
   test('should throw error cause homeTeam is null', () => {
-    fail('Not implemented');
+    try {
+      game = new Game(null, CountryNameEnum.Canada);
+    } catch (error) {
+      expect(error).toBeInstanceOf(PropertyValidationError);
+    }
   });
 
   test('should throw error cause awayTeam is null', () => {
-    fail('Not implemented');
+    try {
+      game = new Game(CountryNameEnum.Canada, null);
+    } catch (error) {
+      expect(error).toBeInstanceOf(PropertyValidationError);
+    }
   });
 
   test('should throw error cause updateScore get negative number', () => {
-    fail('Not implemented');
+    try {
+      game = new Game(CountryNameEnum.Mexico, CountryNameEnum.Canada);
+      game.updateScore(-1, 0);
+    } catch (error) {
+      expect(error).toBeInstanceOf(PropertyValidationError);
+    }
+
+    try {
+      game = new Game(CountryNameEnum.Mexico, CountryNameEnum.Canada);
+      game.updateScore(0, -1);
+    } catch (error) {
+      expect(error).toBeInstanceOf(PropertyValidationError);
+    }
   });
 });
