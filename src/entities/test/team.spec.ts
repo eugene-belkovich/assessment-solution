@@ -1,7 +1,7 @@
 import {PropertyValidationError} from '../../validation';
 import {Team} from '../team.entity';
-import {CountryNameEnum} from '../../enums/country.enum';
 import {Country} from '../country.entity';
+import {CountryNameEnum} from "../../enums";
 
 describe('Team', () => {
   let team: Team;
