@@ -1,5 +1,6 @@
+import {Optional} from '../utils';
 import {Game} from '../entities/game.entity';
-import {Optional} from "../utils";
+import {ScoreboardRepositoryError} from "../validation";
 
 export interface ScoreboardRepository {
   addGame(game: Game): void;
@@ -9,6 +10,9 @@ export interface ScoreboardRepository {
   findAllGames(): Game[];
 }
 
+export const GAME_IS_NULL: string = 'Game cannot be null';
+export const GAME_ALREADY_EXISTS: string = 'Game already exists';
+
 export class ScoreboardInMemoryRepository implements ScoreboardRepository {
   private _backend: Map<string, Game>;
 
@@ -16,8 +20,21 @@ export class ScoreboardInMemoryRepository implements ScoreboardRepository {
     this._backend = new Map<string, Game>();
   }
 
+  private getKey(homeTeam: string, awayTeam: string): string {
+    return `${homeTeam} - ${awayTeam}`;
+  }
+
   public addGame(game: Game): void {
-    console.log('addGame');
+    if (!game) {
+      throw new ScoreboardRepositoryError(GAME_IS_NULL);
+    }
+
+    const foundGame: Game = this.findGame(game.homeTeam, game.awayTeam);
+    if (foundGame) {
+      throw new ScoreboardRepositoryError(GAME_ALREADY_EXISTS);
+    }
+
+    this._backend.set(this.getKey(game.homeTeam, game.awayTeam), game);
   }
 
   public deleteGame(homeTeam: string, awayTeam: string): void {
@@ -28,11 +45,11 @@ export class ScoreboardInMemoryRepository implements ScoreboardRepository {
     console.log('updateGame');
   }
 
-  public findAllGames(): Game[] {
-    return [];
+  public findGame(homeTeam: string, awayTeam: string): Optional<Game> {
+    return this._backend.get(this.getKey(homeTeam, awayTeam));
   }
 
-  public findGame(homeTeam: string, awayTeam: string): Optional<Game> {
-    return undefined;
+  public findAllGames(): Game[] {
+    return Array.from(this._backend.values());
   }
 }
