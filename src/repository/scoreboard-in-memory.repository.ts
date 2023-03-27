@@ -7,6 +7,7 @@ export interface ScoreboardRepository {
   addGame(game: Game): void;
   deleteGame(homeTeam: string, awayTeam: string): void;
   updateGame(game: Game): void;
+  findOneGame(homeTeam: string, awayTeam: string): Optional<Game>;
   findGame(homeTeam: string, awayTeam: string): Optional<Game>;
   findAllGames(): Game[];
 }
@@ -58,6 +59,16 @@ export class ScoreboardInMemoryRepository implements ScoreboardRepository {
     }
 
     this._backend.set(gameId, game);
+  }
+
+  public findOneGame(homeTeam: string, awayTeam: string): Optional<Game> {
+    const foundGame: Game = this.findGame(homeTeam, awayTeam);
+    if (!foundGame) {
+      throw new ScoreboardRepositoryError(
+        `${RepositoryErrorMessagesEnum.GAME_IS_NOT_EXISTS}${this.getKey(homeTeam, awayTeam)}`,
+      );
+    }
+    return foundGame;
   }
 
   public findGame(homeTeam: string, awayTeam: string): Optional<Game> {

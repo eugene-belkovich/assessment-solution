@@ -14,7 +14,7 @@ describe('ScoreboardInMemoryRepository', () => {
     test('should added game', () => {
       const game = new Game(CountryNameEnum.Mexico, CountryNameEnum.Canada);
       repository.addGame(game);
-      const expected = repository.findGame(CountryNameEnum.Mexico, CountryNameEnum.Canada);
+      const expected = repository.findOneGame(CountryNameEnum.Mexico, CountryNameEnum.Canada);
       expect(expected).toEqual(game);
       expect(expected.startTime).toEqual(game.startTime);
       expect(expected.homeTeam).toEqual(game.homeTeam);
@@ -67,7 +67,7 @@ describe('ScoreboardInMemoryRepository', () => {
       repository.addGame(game);
       game.updateScore(1, 0);
       repository.updateGame(game);
-      const expected = repository.findGame(CountryNameEnum.Mexico, CountryNameEnum.Canada);
+      const expected = repository.findOneGame(CountryNameEnum.Mexico, CountryNameEnum.Canada);
       expect(expected.homeScore).toEqual(1);
       expect(expected.totalScore).toEqual(1);
     });

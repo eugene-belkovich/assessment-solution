@@ -28,7 +28,9 @@ export class Scoreboard implements IScoreboard {
   }
 
   public updateScore(homeTeam: string, awayTeam: string, homeScore: number, awayScore: number): void {
-    console.log('updateScore');
+    const game: Game = this._repository.findOneGame(homeTeam, awayTeam);
+    game.updateScore(homeScore, awayScore);
+    this._repository.updateGame(game);
   }
 
   public getGamesSummary(): string {

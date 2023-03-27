@@ -12,6 +12,7 @@ describe('Scoreboard', () => {
     mockRepository = {
       addGame: jest.fn(),
       deleteGame: jest.fn(),
+      findOneGame: jest.fn(),
       findGame: jest.fn(),
       updateGame: jest.fn(),
       findAllGames: jest.fn(),
@@ -74,9 +75,29 @@ describe('Scoreboard', () => {
     });
   });
 
-  describe('updateScore', () => {
-    test('should update game score and call repository.updateGame', () => {
-      fail('Not implemented');
+  describe('finishGame', () => {
+    test('should call repository.deleteGame with home and away teams', () => {
+      const homeTeam = CountryNameEnum.Spain;
+      const awayTeam = CountryNameEnum.Germany;
+
+      scoreboard.finishGame(homeTeam, awayTeam);
+
+      expect(mockRepository.deleteGame).toHaveBeenCalledWith(homeTeam, awayTeam);
+    });
+
+    test('should propagate error when repository.deleteGame throws error', () => {
+      const homeTeam = CountryNameEnum.Spain;
+      const awayTeam = CountryNameEnum.Germany;
+
+      const errorMessage = `The game with key "${homeTeam} - ${awayTeam}" is not not stored in database`;
+      const error = new ScoreboardRepositoryError(errorMessage);
+
+      mockRepository.deleteGame.mockImplementationOnce(() => {
+        throw error;
+      });
+
+      expect(() => scoreboard.finishGame(homeTeam, awayTeam)).toThrow(error);
+      expect(mockRepository.deleteGame).toHaveBeenCalledWith(homeTeam, awayTeam);
     });
   });
 
