@@ -17,7 +17,10 @@
       "pre-commit": "npm run pretest"
     }
   },
-  "dependencies": {},
+  "dependencies": {
+    "class-validator": "0.14.0",
+    "reflect-metadata": "0.1.13"
+  },
   "devDependencies": {
     "@types/jest": "^26.0.14",
     "@types/node": "18.0.3",
