@@ -13,7 +13,7 @@ describe('Game', () => {
     expect(game.awayScore).toEqual(0);
     expect(game.totalScore).toEqual(0);
     expect(game.startTime).not.toEqual(null);
-    expect(typeof game.startTime).toBe('string');
+    expect(typeof game.startTime).toBe('object');
   });
 
   test('should correctly update score and total score', () => {

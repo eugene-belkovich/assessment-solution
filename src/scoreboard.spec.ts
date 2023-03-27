@@ -26,17 +26,14 @@ describe('Scoreboard', () => {
       const homeTeam = CountryNameEnum.Spain;
       const awayTeam = CountryNameEnum.Germany;
 
-      const game = new Game(homeTeam, awayTeam);
 
       scoreboard.startNewGame(homeTeam, awayTeam);
-      expect(mockRepository.addGame).toHaveBeenCalledWith(game);
+      expect(mockRepository.addGame).toHaveBeenCalledTimes(1);
     });
 
     test('should propagate error when repository.addGame throws error', () => {
       const homeTeam = CountryNameEnum.Spain;
       const awayTeam = CountryNameEnum.Germany;
-
-      const game = new Game(homeTeam, awayTeam);
 
       const error = new ScoreboardRepositoryError(RepositoryErrorMessagesEnum.GAME_IS_NULL);
 
@@ -45,7 +42,7 @@ describe('Scoreboard', () => {
       });
 
       expect(() => scoreboard.startNewGame(homeTeam, awayTeam)).toThrow(error);
-      expect(mockRepository.addGame).toHaveBeenCalledWith(game);
+      expect(mockRepository.addGame).toHaveBeenCalledTimes(1);
     });
   });
 

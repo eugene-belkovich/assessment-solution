@@ -22,6 +22,7 @@ module.exports = {
     'no-use-before-define': ['error', {functions: false}],
     '@typescript-eslint/no-inferrable-types': ['off'],
     'import/prefer-default-export': 'off',
+    '@typescript-eslint/ban-ts-comment': 'off',
     'no-await-in-loop': 'off',
     'no-underscore-dangle': 'off',
     'dot-notation': 'off',

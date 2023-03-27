@@ -6,6 +6,7 @@ export enum CountryNameEnum {
   Germany = 'Germany',
   Uruguay = 'Uruguay',
   Italy = 'Italy',
+  France = 'France',
   Argentina = 'Argentina',
   Australia = 'Australia',
 }

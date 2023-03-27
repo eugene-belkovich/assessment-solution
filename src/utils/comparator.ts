@@ -1,3 +1,9 @@
 import {Game} from '../entities/game.entity';
 
-export const sortGamesByTotalDesc = (a: Game, b: Game) => b.totalScore - a.totalScore;
+export const sortGamesByTotalAndTimeDesc = (a: Game, b: Game) => {
+  if (b.totalScore === a.totalScore) {
+    // @ts-ignore
+    return b.startTime - a.startTime;
+  }
+  return b.totalScore - a.totalScore;
+};

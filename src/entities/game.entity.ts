@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import {Team} from './team.entity';
 import {Score} from './score.entity';
-import {IsString} from 'class-validator';
+import {IsDate} from 'class-validator';
 import {Type} from 'class-transformer';
 import {Country} from './country.entity';
 import {BaseEntity} from './base-entity';
@@ -13,7 +13,7 @@ export interface IGame {
   homeScore: number;
   awayScore: number;
   totalScore: number;
-  startTime: string;
+  startTime: Date;
 }
 
 export class Game extends BaseEntity implements IGame {
@@ -32,8 +32,8 @@ export class Game extends BaseEntity implements IGame {
   @Type(() => Score)
   private _awayScore: Score;
 
-  @IsString()
-  private readonly _startTime: string;
+  @IsDate()
+  private readonly _startTime: Date;
 
   public constructor(homeTeam: string, awayTeam: string) {
     super();
@@ -41,13 +41,7 @@ export class Game extends BaseEntity implements IGame {
     this._awayTeam = new Team(new Country(CountryNameEnum[awayTeam]));
     this._homeScore = new Score(0);
     this._awayScore = new Score(0);
-    this._startTime = new Date().toLocaleTimeString([], {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-      hour: '2-digit',
-      minute: '2-digit',
-    });
+    this._startTime = new Date();
     this.validate();
   }
 
@@ -59,7 +53,7 @@ export class Game extends BaseEntity implements IGame {
     return this._awayTeam.name;
   }
 
-  public get startTime(): string {
+  public get startTime(): Date {
     return this._startTime;
   }
 
