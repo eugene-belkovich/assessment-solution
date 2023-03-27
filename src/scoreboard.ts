@@ -1,6 +1,8 @@
 import {Type} from 'class-transformer';
 import {ScoreboardInMemoryRepository, ScoreboardRepository} from './repository/scoreboard-in-memory.repository';
 import {Game} from "./entities/game.entity";
+import {sortGamesByTotalDesc} from "./utils/comparator";
+import {lineFormatter} from "./utils/line-formatter";
 
 export interface IScoreboard {
   startNewGame(homeTeam: string, awayTeam: string): void;
@@ -30,6 +32,10 @@ export class Scoreboard implements IScoreboard {
   }
 
   public getGamesSummary(): string {
-    return '';
+    return this._repository
+        .findAllGames()
+        .sort(sortGamesByTotalDesc)
+        .map((game: Game, index: number) => lineFormatter(index + 1, game))
+        .join('\n');
   }
 }
