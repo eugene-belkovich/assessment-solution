@@ -1,4 +1,4 @@
-import {CountryNameEnum} from '../enums/country.enum';
+import {CountryNameEnum} from '../enums';
 import {IsEnum} from 'class-validator';
 import {BaseEntity} from './base-entity';
 

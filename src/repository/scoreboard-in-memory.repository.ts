@@ -1,9 +1,9 @@
-import {Game} from '../entities/game.entity';
+import {Game} from '../entities';
 import {ScoreboardRepositoryError} from '../errors';
 import {RepositoryErrorMessagesEnum} from '../enums';
 import {Optional} from '../types';
 
-export interface ScoreboardRepository {
+export interface IScoreboardRepository {
   addGame(game: Game): void;
   deleteGame(homeTeam: string, awayTeam: string): void;
   updateGame(game: Game): void;
@@ -12,7 +12,7 @@ export interface ScoreboardRepository {
   findAllGames(): Game[];
 }
 
-export class ScoreboardInMemoryRepository implements ScoreboardRepository {
+export class ScoreboardInMemoryRepository implements IScoreboardRepository {
   private _backend: Map<string, Game>;
 
   public constructor() {

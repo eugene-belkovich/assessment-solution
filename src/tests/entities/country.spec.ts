@@ -1,4 +1,4 @@
-import {Country} from '../../entities/country.entity';
+import {Country} from '../../entities';
 import {PropertyValidationError} from '../../errors';
 import {CountryNameEnum} from '../../enums';
 

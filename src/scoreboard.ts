@@ -1,6 +1,6 @@
 import {Type} from 'class-transformer';
-import {ScoreboardInMemoryRepository, ScoreboardRepository} from './repository/scoreboard-in-memory.repository';
-import {Game} from './entities/game.entity';
+import {ScoreboardInMemoryRepository, IScoreboardRepository} from './repository';
+import {Game} from './entities';
 import {sortGamesByTotalAndTimeDesc, lineFormatter} from './utils';
 
 export interface IScoreboard {
@@ -12,9 +12,9 @@ export interface IScoreboard {
 
 export class Scoreboard implements IScoreboard {
   @Type(() => ScoreboardInMemoryRepository)
-  private _repository: ScoreboardRepository;
+  private _repository: IScoreboardRepository;
 
-  public constructor(repository?: ScoreboardRepository) {
+  public constructor(repository?: IScoreboardRepository) {
     this._repository = repository || new ScoreboardInMemoryRepository();
   }
 

@@ -1,5 +1,5 @@
-import {ScoreboardInMemoryRepository} from '../../repository/scoreboard-in-memory.repository';
-import {Game} from '../../entities/game.entity';
+import {ScoreboardInMemoryRepository} from '../../repository';
+import {Game} from '../../entities';
 import {ScoreboardRepositoryError} from '../../errors';
 import {CountryNameEnum} from '../../enums';
 

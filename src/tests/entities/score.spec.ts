@@ -1,4 +1,4 @@
-import {Score} from '../../entities/score.entity';
+import {Score} from '../../entities';
 import {PropertyValidationError} from '../../errors';
 
 describe('Score', () => {

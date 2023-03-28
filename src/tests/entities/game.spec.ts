@@ -1,4 +1,4 @@
-import {Game} from '../../entities/game.entity';
+import {Game} from '../../entities';
 import {PropertyValidationError} from '../../errors';
 import {CountryNameEnum} from '../../enums';
 

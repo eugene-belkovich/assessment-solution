@@ -1,12 +1,12 @@
 import {IScoreboard, Scoreboard} from '../scoreboard';
-import {ScoreboardRepository} from '../repository/scoreboard-in-memory.repository';
 import {CountryNameEnum, RepositoryErrorMessagesEnum} from '../enums';
-import {Game} from '../entities/game.entity';
+import {Game} from '../entities';
 import {ScoreboardRepositoryError} from '../errors';
+import {IScoreboardRepository} from '../repository';
 
 describe('Scoreboard', () => {
   let scoreboard: IScoreboard;
-  let mockRepository: jest.Mocked<ScoreboardRepository>;
+  let mockRepository: jest.Mocked<IScoreboardRepository>;
 
   beforeEach(() => {
     mockRepository = {
@@ -16,7 +16,7 @@ describe('Scoreboard', () => {
       findGame: jest.fn(),
       updateGame: jest.fn(),
       findAllGames: jest.fn(),
-    } as jest.Mocked<ScoreboardRepository>;
+    } as jest.Mocked<IScoreboardRepository>;
 
     scoreboard = new Scoreboard(mockRepository);
   });
