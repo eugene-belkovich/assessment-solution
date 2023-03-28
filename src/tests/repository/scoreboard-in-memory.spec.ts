@@ -1,7 +1,7 @@
-import {ScoreboardInMemoryRepository} from '../repository/scoreboard-in-memory.repository';
-import {Game} from '../entities/game.entity';
-import {ScoreboardRepositoryError} from '../errors';
-import {CountryNameEnum} from '../enums';
+import {ScoreboardInMemoryRepository} from '../../repository/scoreboard-in-memory.repository';
+import {Game} from '../../entities/game.entity';
+import {ScoreboardRepositoryError} from '../../errors';
+import {CountryNameEnum} from '../../enums';
 
 describe('ScoreboardInMemoryRepository', () => {
   let repository: ScoreboardInMemoryRepository;
