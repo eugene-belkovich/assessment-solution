@@ -1,18 +1,19 @@
 # Notes
 - I implemented the scoreboard as a library, so it can be used in any application.
-- I tried to decompose object and keep them very simple.
-- I decided to use "class-transformer" and "class-validator" to validate the input data and not write my own validation code.
-- I implemented general in-memory store solution ScoreboardInMemoryRepository
 - I tried keep focus on TDD and use red/green/refactor approach and implement each function one by one.
 - I used SOLID, DRY, KISS principles
-
+- I tried to decompose objects and keep them as simple as possible. 
+- I decided to use "class-transformer" and "class-validator" to validate the input data and not write my own validation code.
+- I implemented general in-memory store solution ScoreboardInMemoryRepository for keeping state
 
 # Ideas
 Possible improvements:
 - handle same homeTeam and awayTeam
 - add endTime
-- add isSecondHalf for game
+- add the game time management logic
+- add isSecondHalf flag for game
 - get score based on isSecondHalf
+- swap teams if isSecondHalf
 - add status for game
 ```ts
   export enum GameStatusEnum {
