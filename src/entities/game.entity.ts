@@ -5,7 +5,7 @@ import {IsDate} from 'class-validator';
 import {Type} from 'class-transformer';
 import {Country} from './country.entity';
 import {BaseEntity} from './base-entity';
-import {CountryNameEnum} from "../enums";
+import {CountryNameEnum} from '../enums';
 
 export interface IGame {
   homeTeam: string;

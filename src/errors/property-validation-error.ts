@@ -1,7 +1,9 @@
+import {ValidationError} from 'class-validator';
+
 export class PropertyValidationError extends Error {
   public readonly errors = [];
 
-  public constructor(message: string, errors?: any) {
+  public constructor(message: string, errors?: ValidationError[]) {
     super();
     this.name = this.constructor?.name;
     this.message = `${message} ${this.prepareExceptionMessage()}`;

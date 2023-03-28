@@ -1,8 +1,8 @@
 import {IScoreboard, Scoreboard} from '../scoreboard';
 import {ScoreboardRepository} from '../repository/scoreboard-in-memory.repository';
-import {CountryNameEnum, RepositoryErrorMessagesEnum} from "../enums";
-import {Game} from "../entities/game.entity";
-import {ScoreboardRepositoryError} from "../errors";
+import {CountryNameEnum, RepositoryErrorMessagesEnum} from '../enums';
+import {Game} from '../entities/game.entity';
+import {ScoreboardRepositoryError} from '../errors';
 
 describe('Scoreboard', () => {
   let scoreboard: IScoreboard;
@@ -25,7 +25,6 @@ describe('Scoreboard', () => {
     test('should call repository.addGame with a new game', () => {
       const homeTeam = CountryNameEnum.Spain;
       const awayTeam = CountryNameEnum.Germany;
-
 
       scoreboard.startNewGame(homeTeam, awayTeam);
       expect(mockRepository.addGame).toHaveBeenCalledTimes(1);
@@ -117,7 +116,7 @@ describe('Scoreboard', () => {
 
       expect(mockRepository.findAllGames).toHaveBeenCalled();
       expect(summary).toEqual(
-          expect.stringContaining(`1. Argentina 3 - Brazil 3
+        expect.stringContaining(`1. Argentina 3 - Brazil 3
 2. Spain 1 - Germany 2`),
       );
     });

@@ -1,7 +1,7 @@
 import {Game} from '../entities/game.entity';
 import {ScoreboardRepositoryError} from '../errors';
 import {RepositoryErrorMessagesEnum} from '../enums';
-import {Optional} from "../types";
+import {Optional} from '../types';
 
 export interface ScoreboardRepository {
   addGame(game: Game): void;

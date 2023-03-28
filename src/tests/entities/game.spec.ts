@@ -1,6 +1,6 @@
 import {Game} from '../../entities/game.entity';
 import {PropertyValidationError} from '../../errors';
-import {CountryNameEnum} from "../../enums";
+import {CountryNameEnum} from '../../enums';
 
 describe('Game', () => {
   let game: Game;

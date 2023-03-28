@@ -1,4 +1,4 @@
-import {Scoreboard} from "./scoreboard";
+import {Scoreboard} from './scoreboard';
 
 export class LiveFootballWorldCupScoreboard extends Scoreboard {
   public constructor() {
