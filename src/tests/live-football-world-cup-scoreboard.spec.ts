@@ -1,6 +1,6 @@
-import {LiveFootballWorldCupScoreboard} from './live-football-world-cup-scoreboard';
-import {CountryNameEnum} from './enums';
-import {delay} from "./utils";
+import {LiveFootballWorldCupScoreboard} from '../live-football-world-cup-scoreboard';
+import {CountryNameEnum} from '../enums';
+import {delay} from "../utils";
 
 
 

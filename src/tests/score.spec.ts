@@ -1,5 +1,5 @@
-import {Score} from '../score.entity';
-import {PropertyValidationError} from '../../errors';
+import {Score} from '../entities/score.entity';
+import {PropertyValidationError} from '../errors';
 
 describe('Score', () => {
   let score: Score;
