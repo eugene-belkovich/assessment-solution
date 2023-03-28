@@ -1,8 +1,8 @@
 # Notes
 - I implemented the scoreboard as a library, so it can be used in any application.
-- I tried keep focus on TDD and use red/green/refactor approach and implement each function one by one.
+- I tried keep focus on TDD and use red/green/refactor approach and implemented each function one by one.
 - I used SOLID, DRY, KISS principles
-- I tried to decompose objects and keep them as simple as possible. 
+- I decompose entities classes and keep them as simple as possible. 
 - I decided to use "class-transformer" and "class-validator" to validate the input data and not write my own validation code.
 - I implemented general in-memory store solution ScoreboardInMemoryRepository for keeping state
 
