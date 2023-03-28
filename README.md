@@ -1,4 +1,4 @@
-# Sportradar task
+# Sportradar assessment solution 
 
 Read the tests and run them to check how it works.
 Please check  [notes](NOTES.md)
